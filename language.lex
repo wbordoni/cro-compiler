@@ -18,66 +18,119 @@ ID              [a-z][a-z0-9]*
 
 %%
 {DIGIT}+                {
-    debug("Integer", yytext, yylineno);
+    //debug("Integer", yytext, yylineno);
     yylval.sVal = yytext;
     return TOK_INT;
 }
 
 {DIGIT}+"."{DIGIT}*     {
-    debug("Float", yytext, yylineno);
+    //debug("Float", yytext, yylineno);
     yylval.sVal = yytext;
     return TOK_FLOAT;
 }
 
 {ID}                    {
-    debug("Identifier", yytext, yylineno);
+    //debug("Identifier", yytext, yylineno);
     yylval.sVal = yytext;
-    return TOK_STRING;
+    return TOK_ID;
 }
 
 \n                      {}
 [ \t]+                  {}
 
     
+"PRINT"                 {
+    //debug("Print", yytext, yylineno);
+    yylval.sVal = yytext;
+    return TOK_PRINT;
+}
 
 #.*                     {
-    debug("Comment", yytext, yylineno);
+    //debug("Comment", yytext, yylineno);
     yylval.sVal = yytext;
     return TOK_COMMENT;
 }
 
 
 "+"                     {
-    debug("Operator", yytext, yylineno);
+    //debug("Operator", yytext, yylineno);
     yylval.sVal = yytext;
     return TOK_PLUS;
 }
 
 "-"                     {
-    debug("Operator", yytext, yylineno);
+    //debug("Operator", yytext, yylineno);
     yylval.sVal = yytext;
     return TOK_MINUS;
 }
 
 "*"                     {
-    debug("Operator", yytext, yylineno);
+    //debug("Operator", yytext, yylineno);
     yylval.sVal = yytext;
     return TOK_MUL;
 }
 
+"="                     {
+    //debug("Operator", yytext, yylineno);
+    yylval.sVal = yytext;
+    return TOK_EQUAL;
+}
+
 "/"                     {
-    debug("Operator", yytext, yylineno);
+    //debug("Operator", yytext, yylineno);
     yylval.sVal = yytext;
     return TOK_DIV;
 }
 
-"("                     debug("Parenthesis open", yytext, yylineno);
-")"                     debug("Parenthesis close", yytext, yylineno);
+"("                     {
+    //debug("Left parenthesis", yytext, yylineno);
+    yylval.sVal = yytext;
+    return TOK_LPAR;
+}
 
+")"                     {
+    //debug("Right Parenthesis", yytext, yylineno);
+    yylval.sVal = yytext;
+    return TOK_RPAR;
+}
 
-.                       debug("Undefined token", yytext, yylineno);
+";"                     {
+    //debug("Semicolon", yytext, yylineno);
+    yylval.sVal = yytext;
+    return TOK_ENDL;
+}
 
-    
+"AND"                     {
+    //debug("And", yytext, yylineno);
+    yylval.sVal = yytext;
+    return TOK_AND;
+}
+
+"OR"                     {
+    //debug("Or", yytext, yylineno);
+    yylval.sVal = yytext;
+    return TOK_OR;
+}
+
+"NOT"                     {
+    //debug("Not", yytext, yylineno);
+    yylval.sVal = yytext;
+    return TOK_NOT;
+}
+
+"TRUE"                     {
+    //debug("True", yytext, yylineno);
+    yylval.sVal = yytext;
+    return TOK_TRUE;
+}
+
+"FALSE"                     {
+    //debug("False", yytext, yylineno);
+    yylval.sVal = yytext;
+    return TOK_FALSE;
+}
+
+.   debug("Undefined token", yytext, yylineno);
 
 %%
 
